@@ -2,8 +2,6 @@ package ru.vsu.cs.util.steblev_d_v;
 
 import java.util.*;
 
-import static java.lang.Math.sqrt;
-
 public class Model {
 
     public ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
@@ -11,7 +9,7 @@ public class Model {
     public ArrayList<Vector3f> normals = new ArrayList<Vector3f>();
     public ArrayList<Polygon> polygons = new ArrayList<Polygon>();
 
-    public void recalculatePolygonNormals() {
+    public void recalculateNormals() {
         normals.clear();
         for (Polygon polygon : polygons) {
             Vector3f v1 = vertices.get(polygon.getVertexIndices().get(0));
@@ -24,21 +22,24 @@ public class Model {
             Vector3f normal = v4.crs(v5);
             normals.add(normal.nor());
         }
-
-        for (int i = 0; i < polygons.size(); i++) {
-            for (int j = 0; j < vertices.size(); j++) {
-                    if (vertices.get(j).equals(polygons.get(i).getVertexIndices().get(i))) {
-                        List<Vector3f> normalsVeric = new ArrayList<>();
-                        normalsVeric.add(normals.get(i));
-                        Vector3f normalForVert = getNormalForVert(normalsVeric);
-                        ArrayList<Vector3f> normalsForVertices = new ArrayList<Vector3f>();
-                        normalsForVertices.add(getNormalForVert(normalsVeric));
+        ArrayList<Vector3f> normalsForVertices = new ArrayList<Vector3f>();
+        for (int i = 0; i < vertices.size(); i++) {
+            List<Vector3f> normalsVeric = new ArrayList<>();
+            for (int j = 0; j < polygons.size(); j++) {
+                for (int k = 0; k < polygons.get(j).getVertexIndices().size(); k++) {
+                    if (vertices.get(i).equals(vertices.get(polygons.get(j).getVertexIndices().get(k)))) {
+                        normalsVeric.add(normals.get(j));
+                    }
                 }
             }
+            Vector3f normalForVert = getNormalForVert(normalsVeric);
+            normalsForVertices.add(normalForVert);
         }
+        normals.clear();
+        normals.addAll(normalsForVertices);
     }
 
-    public Vector3f getNormalForVert(List<Vector3f> norlamsVeric){
+    public Vector3f getNormalForVert(List<Vector3f> norlamsVeric) {
         Vector3f normal = new Vector3f(0, 0, 0);
         for (int i = 0; i < norlamsVeric.size(); i++) {
             normal.add(norlamsVeric.get(i));
@@ -46,8 +47,6 @@ public class Model {
         normal.div(norlamsVeric.size());
         return normal;
     }
-
-
 
 
 }
