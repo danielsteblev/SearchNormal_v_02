@@ -16,6 +16,7 @@ public class App {
 
         System.out.println("Loading model ...");
         Model model = ObjReader.read(fileContent);
+
         model.recalculateNormals();
 
         System.out.println("Vertices: " + model.vertices.size());
@@ -24,7 +25,6 @@ public class App {
         System.out.println("Polygons: " + model.polygons.size());
 
         System.out.println(model.normals);
-        System.out.println(model.vertices);
 
     }
 }

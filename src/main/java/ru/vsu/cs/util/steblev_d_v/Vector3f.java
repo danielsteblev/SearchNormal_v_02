@@ -21,6 +21,10 @@ public class Vector3f {
         return this;
     }
 
+    public Vector3f cpy() {
+        return new Vector3f(this.x, this.y, this.z);
+    }
+
     public float dot(Vector3f v) { // Скалярное
         return this.x * v.x + this.y * v.y + this.z * v.z;
     }
