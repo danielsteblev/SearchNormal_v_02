@@ -8,6 +8,14 @@ public class Polygon {
     private ArrayList<Integer> textureVertexIndices;
     private ArrayList<Integer> normalIndices;
 
+    @Override
+    public String toString() {
+        return "Polygon{" +
+                "vertexIndices=" + vertexIndices +
+                ", textureVertexIndices=" + textureVertexIndices +
+                ", normalIndices=" + normalIndices +
+                '}';
+    }
 
     public Polygon() {
         vertexIndices = new ArrayList<Integer>();

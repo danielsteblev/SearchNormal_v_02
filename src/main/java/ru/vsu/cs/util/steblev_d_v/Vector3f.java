@@ -54,5 +54,19 @@ public class Vector3f {
         return (float) Math.sqrt(x * x + y * y + z * z);
     }
 
+    public Vector3f add(Vector3f v) {
+        this.x += v.x;
+        this.y += v.y;
+        this.z += v.z;
+        return this;
+    }
+
+    public Vector3f div(float scalar) {
+        this.x /= scalar;
+        this.y /= scalar;
+        this.z /= scalar;
+        return this;
+    }
+
     float x, y, z;
 }
